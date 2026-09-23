@@ -1,4 +1,3 @@
-# Person 1 — ML Results
 
 ## Final Model
 
