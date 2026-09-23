@@ -1,0 +1,5 @@
+{
+    "method": "SVM decision-function margin",
+    "threshold": 0.2,
+    "description": "Tickets below this confidence margin are flagged for review."
+}

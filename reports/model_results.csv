@@ -1,0 +1,2 @@
+model,features,accuracy,precision_weighted,recall_weighted,f1_weighted
+Logistic Regression,TF-IDF,0.5293757649938801,0.5424129811500252,0.5293757649938801,0.5305685850241209

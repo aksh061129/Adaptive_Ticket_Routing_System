@@ -1,0 +1,19 @@
+Final SVM Classification Report
+==================================================
+
+                                 precision    recall  f1-score   support
+
+           Billing and Payments       0.88      0.89      0.89       319
+               Customer Service       0.68      0.71      0.70       482
+                General Inquiry       0.91      0.64      0.75        47
+                Human Resources       0.96      0.70      0.81        70
+                     IT Support       0.72      0.63      0.67       388
+                Product Support       0.69      0.71      0.70       615
+          Returns and Exchanges       0.85      0.63      0.73       164
+            Sales and Pre-Sales       0.80      0.66      0.72       103
+Service Outages and Maintenance       0.81      0.80      0.80       133
+              Technical Support       0.71      0.79      0.75       947
+
+                       accuracy                           0.74      3268
+                      macro avg       0.80      0.72      0.75      3268
+                   weighted avg       0.74      0.74      0.74      3268
