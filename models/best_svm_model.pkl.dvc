@@ -1,0 +1,5 @@
+outs:
+- md5: e7429fc832bd806dc8721d122b1cc47f
+  size: 9368596
+  hash: md5
+  path: best_svm_model.pkl
