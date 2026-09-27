@@ -34,7 +34,9 @@ minilm_*.npy
 minilm_*.pkl
 
 # Dataset files
+# Dataset files
 data/raw/*
+!data/raw/*.dvc
 data/processed/*
 data/splits/*
 
