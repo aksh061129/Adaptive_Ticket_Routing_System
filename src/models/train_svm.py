@@ -91,7 +91,8 @@ def create_svm():
     return LinearSVC(
         C=10,
         class_weight="balanced",
-        random_state=42
+        random_state=42,
+        max_iter=5000
     )
 
 
