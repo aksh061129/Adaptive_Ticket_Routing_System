@@ -1,7 +1,9 @@
 from pathlib import Path
-
+import mlflow
 import joblib
 import pandas as pd
+import mlflow.sklearn
+
 
 from scipy.sparse import hstack
 
@@ -97,6 +99,9 @@ def create_svm():
 
 
 def run_svm_experiments():
+    mlflow.set_experiment(
+        "adaptive-ticket-routing-svm"
+    )
 
     X_train, X_test, y_train, y_test = (
         load_training_data()
@@ -125,21 +130,36 @@ def run_svm_experiments():
         X_test
     )
 
-    svm_11 = create_svm()
+    with mlflow.start_run(run_name="svm_word_1_1"):
+        mlflow.log_param("model", "LinearSVC")
+        mlflow.log_param("C", 10)
+        mlflow.log_param("class_weight", "balanced")
+        mlflow.log_param("feature_type", "word_tfidf")
+        mlflow.log_param("ngram_range", "(1,1)")
 
-    svm_11.fit(
-        X_train_11,
-        y_train
-    )
+        svm_11 = create_svm()
 
-    pred_11 = svm_11.predict(
-        X_test_11
-    )
+        svm_11.fit(
+             X_train_11,
+             y_train
+        )
 
-    result_11 = evaluate_model(
-        y_test,
-        pred_11
-    )
+        pred_11 = svm_11.predict(
+            X_test_11
+        )
+
+        result_11 = evaluate_model(
+            y_test,
+            pred_11
+        )
+
+        mlflow.log_metrics({
+            "accuracy": result_11["Accuracy"],
+            "precision": result_11["Precision"],
+            "recall": result_11["Recall"],
+            "macro_f1": result_11["Macro F1"],
+            "weighted_f1": result_11["Weighted F1"]
+        })
 
     result_11["Model"] = (
         "SVM + Word TF-IDF (1,1)"
@@ -168,21 +188,36 @@ def run_svm_experiments():
         X_test
     )
 
-    svm_12 = create_svm()
+    with mlflow.start_run(run_name="svm_word_1_2"):
+        mlflow.log_param("model", "LinearSVC")
+        mlflow.log_param("C", 10)
+        mlflow.log_param("class_weight", "balanced")
+        mlflow.log_param("feature_type", "word_tfidf")
+        mlflow.log_param("ngram_range", "(1,2)")
+        
+        svm_12 = create_svm()
 
-    svm_12.fit(
-        X_train_12,
-        y_train
-    )
+        svm_12.fit(
+            X_train_12,
+            y_train
+        )
 
-    pred_12 = svm_12.predict(
-        X_test_12
-    )
+        pred_12 = svm_12.predict(
+            X_test_12
+        )
 
-    result_12 = evaluate_model(
-        y_test,
-        pred_12
-    )
+        result_12 = evaluate_model(
+            y_test,
+            pred_12
+        )
+        
+        mlflow.log_metrics({
+            "accuracy": result_12["Accuracy"],
+            "precision": result_12["Precision"],
+            "recall": result_12["Recall"],
+            "macro_f1": result_12["Macro F1"],
+            "weighted_f1": result_12["Weighted F1"]
+        })
 
     result_12["Model"] = (
         "SVM + Word TF-IDF (1,2)"
@@ -210,22 +245,37 @@ def run_svm_experiments():
     X_test_13 = word_13.transform(
         X_test
     )
+    
+    with mlflow.start_run(run_name="svm_word_1_3"):
+        mlflow.log_param("model", "LinearSVC")
+        mlflow.log_param("C", 10)
+        mlflow.log_param("class_weight", "balanced")
+        mlflow.log_param("feature_type", "word_tfidf")
+        mlflow.log_param("ngram_range", "(1,3)")
 
-    svm_13 = create_svm()
+        svm_13 = create_svm()
 
-    svm_13.fit(
-        X_train_13,
-        y_train
-    )
+        svm_13.fit(
+            X_train_13,
+            y_train
+        )
 
-    pred_13 = svm_13.predict(
-        X_test_13
-    )
+        pred_13 = svm_13.predict(
+            X_test_13
+        )
 
-    result_13 = evaluate_model(
-        y_test,
-        pred_13
-    )
+        result_13 = evaluate_model(
+            y_test,
+            pred_13
+        )
+        
+        mlflow.log_metrics({
+            "accuracy": result_13["Accuracy"],
+            "precision": result_13["Precision"],
+            "recall": result_13["Recall"],
+            "macro_f1": result_13["Macro F1"],
+            "weighted_f1": result_13["Weighted F1"]
+        })
 
     result_13["Model"] = (
         "SVM + Word TF-IDF (1,3)"
@@ -252,22 +302,37 @@ def run_svm_experiments():
     X_test_char = char_tfidf.transform(
         X_test
     )
+    
+    with mlflow.start_run(run_name="svm_character_3_5"):
+        mlflow.log_param("model", "LinearSVC")
+        mlflow.log_param("C", 10)
+        mlflow.log_param("class_weight", "balanced")
+        mlflow.log_param("feature_type", "character_tfidf")
+        mlflow.log_param("ngram_range", "(3,5)")
 
-    svm_char = create_svm()
+        svm_char = create_svm()
 
-    svm_char.fit(
-        X_train_char,
-        y_train
-    )
+        svm_char.fit(
+            X_train_char,
+            y_train
+        )
 
-    pred_char = svm_char.predict(
-        X_test_char
-    )
+        pred_char = svm_char.predict(
+            X_test_char
+        )
 
-    result_char = evaluate_model(
-        y_test,
-        pred_char
-    )
+        result_char = evaluate_model(
+            y_test,
+            pred_char
+        )
+        
+        mlflow.log_metrics({
+            "accuracy": result_char["Accuracy"],
+            "precision": result_char["Precision"],
+            "recall": result_char["Recall"],
+            "macro_f1": result_char["Macro F1"],
+            "weighted_f1": result_char["Weighted F1"]
+        })
 
     result_char["Model"] = (
         "SVM + Character TF-IDF (3,5)"
@@ -290,21 +355,37 @@ def run_svm_experiments():
         X_test_char
     ])
 
-    svm_combined = create_svm()
+    with mlflow.start_run(run_name="svm_word_1_2_character"):
 
-    svm_combined.fit(
-        X_train_combined,
-        y_train
-    )
+        mlflow.log_param("model", "LinearSVC")
+        mlflow.log_param("C", 10)
+        mlflow.log_param("class_weight", "balanced")
+        mlflow.log_param("feature_type", "word_character_combined")
+        mlflow.log_param("word_ngram_range", "(1,2)")
+        mlflow.log_param("character_ngram_range", "(3,5)")
+        svm_combined = create_svm()
 
-    pred_combined = svm_combined.predict(
-        X_test_combined
-    )
+        svm_combined.fit(
+            X_train_combined,
+            y_train
+        )
 
-    result_combined = evaluate_model(
-        y_test,
-        pred_combined
-    )
+        pred_combined = svm_combined.predict(
+            X_test_combined
+        )
+
+        result_combined = evaluate_model(
+            y_test,
+            pred_combined
+        )
+        
+        mlflow.log_metrics({
+            "accuracy": result_combined["Accuracy"],
+            "precision": result_combined["Precision"],
+            "recall": result_combined["Recall"],
+            "macro_f1": result_combined["Macro F1"],
+            "weighted_f1": result_combined["Weighted F1"]
+        })
 
     result_combined["Model"] = (
         "SVM + Word (1,2) + Character TF-IDF"
@@ -354,21 +435,111 @@ def train_final_svm():
     )
 
     # Final SVM
-    best_svm = LinearSVC(
-        C=10,
-        class_weight="balanced",
-        random_state=42
+    best_svm = create_svm()
+
+    # Start MLflow run for the final model
+    mlflow.set_experiment(
+        "adaptive-ticket-routing-final"
     )
 
-    best_svm.fit(
-        X_train_best,
-        y_train
-    )
+    with mlflow.start_run(
+        run_name="final_svm_word_tfidf_1_3"
+    ):
 
-    best_pred = best_svm.predict(
-        X_test_best
-    )
+        # Log model parameters
+        mlflow.log_param(
+            "model",
+            "LinearSVC"
+        )
 
+        mlflow.log_param(
+            "C",
+            10
+        )
+
+        mlflow.log_param(
+            "class_weight",
+            "balanced"
+        )
+
+        mlflow.log_param(
+            "feature_type",
+            "word_tfidf"
+        )
+
+        mlflow.log_param(
+            "ngram_range",
+            "(1,3)"
+        )
+
+        mlflow.log_param(
+            "min_df",
+            2
+        )
+
+        mlflow.log_param(
+            "max_df",
+            0.95
+        )
+
+        mlflow.log_param(
+            "sublinear_tf",
+            True
+        )
+
+        # Train final model
+        best_svm.fit(
+            X_train_best,
+            y_train
+        )
+
+        # Predictions
+        best_pred = best_svm.predict(
+            X_test_best
+        )
+
+        # Calculate metrics
+        final_metrics = evaluate_model(
+            y_test,
+            best_pred
+        )
+
+        # Log metrics to MLflow
+        mlflow.log_metrics({
+            "accuracy": final_metrics["Accuracy"],
+            "precision": final_metrics["Precision"],
+            "recall": final_metrics["Recall"],
+            "macro_f1": final_metrics["Macro F1"],
+            "weighted_f1": final_metrics["Weighted F1"]
+        })
+
+        # Log final SVM model to MLflow
+        mlflow.sklearn.log_model(
+            sk_model=best_svm,
+            artifact_path="svm_model"
+        )
+
+        # Log TF-IDF vectorizer separately
+        mlflow.sklearn.log_model(
+            sk_model=best_tfidf,
+            artifact_path="tfidf_vectorizer"
+        )
+
+        print(
+            "\nFinal model logged to MLflow."
+        )
+
+        print(
+            f"MLflow Weighted F1: "
+            f"{final_metrics['Weighted F1']:.4f}"
+        )
+
+        print(
+            f"MLflow Accuracy: "
+            f"{final_metrics['Accuracy']:.4f}"
+        )
+
+    # Print classification report
     print(
         classification_report(
             y_test,
@@ -377,6 +548,7 @@ def train_final_svm():
         )
     )
 
+    # Save local artifacts
     MODELS_DIR.mkdir(
         parents=True,
         exist_ok=True
@@ -398,7 +570,6 @@ def train_final_svm():
         y_test,
         best_pred
     )
-
 
 if __name__ == "__main__":
 

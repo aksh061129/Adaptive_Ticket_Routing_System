@@ -1,0 +1,20 @@
+stages:
+
+  train_svm:
+    cmd: python src/models/train_svm.py
+    deps:
+      - src/models/train_svm.py
+      - data/splits/train.csv
+      - data/splits/test.csv
+    outs:
+      - models/best_svm_model.pkl
+      - models/best_tfidf_vectorizer.pkl
+      - reports/tfidf_svm_experiments.csv
+
+  evaluate:
+    cmd: python src/evaluation/evaluate.py
+    deps:
+      - src/evaluation/evaluate.py
+      - models/best_svm_model.pkl
+      - models/best_tfidf_vectorizer.pkl
+      - data/splits/test.csv

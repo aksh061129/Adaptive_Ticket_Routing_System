@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  train_svm:
+    cmd: python src/models/train_svm.py
+    deps:
+    - path: data/splits/test.csv
+      hash: md5
+      md5: 46b87d87b0e20d29afa317e0258a830c
+      size: 1040716
+    - path: data/splits/train.csv
+      hash: md5
+      md5: 6da5e219375135a910382373f22e81cb
+      size: 4886197
+    - path: src/models/train_svm.py
+      hash: md5
+      md5: 527bf55e3d8152a0c4fe748e117acda9
+      size: 13505
+    outs:
+    - path: models/best_svm_model.pkl
+      hash: md5
+      md5: 053278ddb2f51f8c548b9bbbd188185e
+      size: 9368596
+    - path: models/best_tfidf_vectorizer.pkl
+      hash: md5
+      md5: da65fadedc5dfdfe2d7cecbda6a2025b
+      size: 3841734
+    - path: reports/tfidf_svm_experiments.csv
+      hash: md5
+      md5: 6da83f914f1b15e7985a8823bfef1066
+      size: 676
+  evaluate:
+    cmd: python src/evaluation/evaluate.py
+    deps:
+    - path: data/splits/test.csv
+      hash: md5
+      md5: 46b87d87b0e20d29afa317e0258a830c
+      size: 1040716
+    - path: models/best_svm_model.pkl
+      hash: md5
+      md5: 053278ddb2f51f8c548b9bbbd188185e
+      size: 9368596
+    - path: models/best_tfidf_vectorizer.pkl
+      hash: md5
+      md5: da65fadedc5dfdfe2d7cecbda6a2025b
+      size: 3841734
+    - path: src/evaluation/evaluate.py
+      hash: md5
+      md5: 2fb0af23a0c6efec8dbe18c70d9221c2
+      size: 3738

@@ -40,3 +40,4 @@ data/raw/*
 data/processed/*
 data/splits/*
 
+reports/tfidf_svm_experiments.csv

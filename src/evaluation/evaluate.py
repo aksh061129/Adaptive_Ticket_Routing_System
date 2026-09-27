@@ -69,13 +69,10 @@ def print_classification_report(
     )
 
 
-def calculate_confidence_margin(
-    decision_scores
-):
-    """
-    Calculate the difference between the
-    highest and second-highest SVM decision scores.
-    """
+def calculate_confidence_margin(decision_scores):
+
+    if decision_scores.ndim == 1:
+        return np.abs(decision_scores)
 
     sorted_scores = np.sort(
         decision_scores,
@@ -85,22 +82,17 @@ def calculate_confidence_margin(
     top_score = sorted_scores[:, -1]
     second_score = sorted_scores[:, -2]
 
-    margin = (
-        top_score - second_score
-    )
-
-    return margin
-
+    return top_score - second_score
 
 def classify_ticket_status(
     margin,
     threshold=UNKNOWN_THRESHOLD
 ):
+
     if margin < threshold:
         return "UNKNOWN / REVIEW"
 
     return "KNOWN / ROUTE"
-
 
 def route_tickets(
     texts,
@@ -167,21 +159,29 @@ if __name__ == "__main__":
         / "best_tfidf_vectorizer.pkl"
     )
 
-    print(
-        "SVM model loaded."
-    )
-
-    print(
-        "TF-IDF vectorizer loaded."
-    )
+    print("SVM model loaded.")
+    print("TF-IDF vectorizer loaded.")
 
     print(
         "Number of known classes:",
         len(model.classes_)
     )
 
-    print(
-        "\nKnown queues:"
+    print("\nKnown queues:")
+    print(model.classes_)
+
+    test_tickets = [
+        "I was charged twice for my subscription",
+        "My laptop cannot connect to the company VPN",
+        "I want to return the product I purchased",
+        "I need help resetting my password"
+    ]
+
+    results = route_tickets(
+        test_tickets,
+        model=model,
+        vectorizer=vectorizer
     )
 
-    print(model.classes_)
+    print("\nTicket routing results:")
+    print(results.to_string(index=False))
