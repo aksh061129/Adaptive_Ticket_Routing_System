@@ -33,6 +33,10 @@ Thumbs.db
 minilm_*.npy
 minilm_*.pkl
 
+# MLflow generated files
+mlflow.db
+mlruns/
+
 # Dataset files
 # Dataset files
 data/raw/*

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Ticket Routing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">A</div>
+            <div>
+                <h1>Adaptive AI</h1>
+                <span>Ticket Routing</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-view="predict"><span>▣</span> Ticket Prediction</button>
+            <button class="nav-item" data-view="categories"><span>◆</span> Categories</button>
+            <button class="nav-item" data-view="status"><span>◉</span> Model Status</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status" id="systemStatus">
+                <span class="status-dot"></span>
+                <span id="systemStatusText">Checking...</span>
+            </div>
+            <small>Linear SVM + TF-IDF</small>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h2 id="pageTitle">Adaptive Ticket Routing</h2>
+                <p class="subtitle" id="pageSubtitle">
+                    Automatically classify support tickets and detect unfamiliar issues.
+                </p>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <!-- PAGE 1: PREDICTION -->
+            <div class="view active" id="view-predict">
+
+                <div class="card pad">
+                    <div class="card-header">
+                        <div>
+                            <h3>Customer Ticket</h3>
+                            <p>Enter a support request to classify it.</p>
+                        </div>
+                    </div>
+
+                    <label for="ticket">Ticket description</label>
+                    <textarea id="ticket" placeholder="Describe the customer's issue..."></textarea>
+
+                    <div class="input-footer">
+                        <span id="characterCount" class="muted">0 characters</span>
+                        <button id="predictBtn" class="btn">Predict Ticket</button>
+                    </div>
+                </div>
+
+                <div class="card pad" id="resultCard">
+                    <div class="empty">
+                        <div class="empty-icon">✦</div>
+                        <h3>Prediction Result</h3>
+                        <p>Enter a customer ticket above to see its predicted support category.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PAGE 2: CATEGORIES -->
+            <div class="view" id="view-categories">
+                <div id="categoriesContainer"></div>
+            </div>
+
+            <!-- PAGE 3: MODEL STATUS -->
+            <div class="view" id="view-status">
+                <div id="statusContainer"></div>
+            </div>
+
+        </section>
+
+        <footer>Adaptive Ticket Routing System</footer>
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
